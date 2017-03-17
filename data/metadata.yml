@@ -78,6 +78,7 @@ frameworks:
     - kmime
     - kparts
     - kunitconversion
+    - kded
     - kdelibs4support
     - kcalcore
     - kdepimlibs
