@@ -76,6 +76,7 @@ frameworks:
     - kdesignerplugin
     - akonadi
     - kmime
+    - kdelibs4support
     - kcalcore
     - kdepimlibs
 type: git
