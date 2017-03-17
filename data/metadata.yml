@@ -75,7 +75,7 @@ frameworks:
     - kitemmodels
     - kdesignerplugin
     - akonadi
-    - akonadi-contact
+    - kdepimlibs
 type: git
 url: https://gerrit-ring.savoirfairelinux.com/ring-daemon
 buildsystem: custom
