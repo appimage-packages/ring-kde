@@ -75,6 +75,7 @@ frameworks:
     - kitemmodels
     - kdesignerplugin
     - akonadi
+    - kmime
     - kdepimlibs
 type: git
 url: https://gerrit-ring.savoirfairelinux.com/ring-daemon
