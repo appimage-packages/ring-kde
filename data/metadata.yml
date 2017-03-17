@@ -80,6 +80,7 @@ frameworks:
     - kunitconversion
     - kded
     - kdelibs4support
+    - kemoticons
     - kcalcore
     - kdepimlibs
 type: git
