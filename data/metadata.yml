@@ -73,6 +73,7 @@ frameworks:
     - knotifyconfig
     - kcontacts
     - kitemmodels
+    - kdesignerplugin
     - akonadi
     - akonadicontacts
 type: git
