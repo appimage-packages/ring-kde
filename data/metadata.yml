@@ -83,7 +83,7 @@ frameworks:
     - kdelibs4support
     - kemoticons
     - kcalcore
-    - kdepimlibs
+    - akonadi-contacts
 type: git
 url: https://gerrit-ring.savoirfairelinux.com/ring-daemon
 buildsystem: custom
