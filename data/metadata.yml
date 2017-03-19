@@ -115,6 +115,7 @@ dependencies:
       source:
         type: git
         url: https://github.com/Corvusoft/restbed
+        branch: master
   - x264:
       build:
         buildsystem: custom
