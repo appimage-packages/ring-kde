@@ -110,8 +110,8 @@ dependencies:
   - kashmir:
       build:
         buildsystem: custom
-        buildoptions: 'cp -r "/app/src/kashmir" "/opt/usr/include/"'
-      depname: kashmir
+        buildoptions: 'mv /app/src/kashmir-dependency/kashmir /opt/usr/include/kashmir'
+      depname: kashmir-dependency
       source:
         type: git
         url: https://github.com/Corvusoft/kashmir-dependency
