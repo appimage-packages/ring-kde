@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 set -x
-export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/lib/x86_64-linux-gnu:/usr/lib:/usr/lib64
+export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/library:/opt/usr/lib/x86_64-linux-gnu:/usr/lib:/usr/lib64
 export PKG_CONFIG="pkg-config --static"
-
+export CPATH=/opt/usr/include:/opt/usr/include/corvusoft:/opt/usr/include/boost/system:/opt/usr/include/boost:/usr/include
+export LDFLAGS="-L/opt/usr/library -L/opt/usr/lib $LDFLAGS"
 cd contrib
 
 rm -rfv build
 mkdir build
 cd build
-if ../bootstrap --prefix=/opt/usr --enable-nettle --enable-gnutls --enable-x264 --enable-ffmpeg; then
-make .nettle .gnutls .x264 .ffmpeg
+if ../bootstrap --prefix=/opt/usr --disable-restbed --disable-boost; then
 
 make
 
