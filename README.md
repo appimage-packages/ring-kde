@@ -10,4 +10,4 @@ https://ring.cx/
 
 S3 Download:
 master:
-https://s3-eu-central-1.amazonaws.com/ds9-apps/index.html#!/ring-kde-master-appimage%2F
+https://s3-eu-central-1.amazonaws.com/ds9-apps/index.html#!/ring-kde-full-master-appimage%2F
