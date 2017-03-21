@@ -1,6 +1,6 @@
 # ring-kde
 Master branch:
-[![Build Status](http://aci.pangea.pub/job/ring-kde-master-appimage/badge/icon)](http://aci.pangea.pub/job/ring-kde-master-appimage/)
+[![Build Status](http://aci.pangea.pub/job/ring-kde-full-master-appimage/badge/icon)](http://aci.pangea.pub/job/ring-kde-full-master-appimage/)
 
 AppImage for Ring KDE
 
