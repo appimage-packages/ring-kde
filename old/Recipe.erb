@@ -19,52 +19,62 @@
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 cd /
+
 # Get helper functions
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
 . ./functions.sh
 rm -f functions.sh
 
-cd /app.Dir
+mkdir /<%= name %>.AppDir/
+
+cd /
+wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
+chmod a+x linuxdeployqt-1-x86_64.AppImage
+
+cd /<%= name %>.AppDir
+
 #Move binary/desktop/icon into AppDir
-mv /app.Dir/usr/bin/<%= binary %> .
-mv /app.Dir/usr/share/applications/org.kde.<%= binary %>.desktop <%= binary %>.desktop
-cp /app.Dir/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
+mv /opt/usr/bin/<%= binary %> .
+cp /opt/usr/lib/ring/dring .
+mv /opt/usr/share/ring-kde/cx.ring.ring-kde.desktop  <%= binary %>.desktop
+cp /opt/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
-mkdir ./etc; cp /etc/mime.types $_
 
-cp -rfv /usr/share/mime ./usr/share/
-update-mime-database ./usr/share/mime
+#All the plugins do not seem to be getting in. Manual copy.
+mkdir -p ./plugins; cp -rfv /opt/usr/lib/qt5/plugins/phonon4qt5_backend $_
+mkdir -p ./usr/{share,bin,sbin,lib}
+mkdir ./etc
 
-# Run appimage once with QT_DEBUG_PLUGINS=1 to add missing ( linuxdeployqt should install correctly)
-mkdir -p ./plugins; cp -r /opt/usr/plugins/{bearer,generic} $_
-# Bring in kf5 plugins
-mv /opt/usr/plugins/kf5/* ./plugins/ || true
-
-#move arch libs into same dir as rest
-mv /opt/usr/lib/x86_64-linux-gnu/pkgconfig/* /opt/usr/lib/pkgconfig/
-rmdir /opt/usr/lib/x86_64-linux-gnu/pkgconfig
-mv /opt/usr/lib/x86_64-linux-gnu/cmake/* /opt/usr/lib/cmake/
-rmdir /opt/usr/lib/x86_64-linux-gnu/cmake
-mv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
-
-#Uncomment for sound
-cp -rfv /opt/usr/lib/qt5/plugins/phonon4qt5_backend
-cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
-cp /opt/usr/bin/gst* ./usr/bin/
-rm -rfv /opt/usr/lib/gstreamer-1.0/include
-cp /opt/usr/lib/gstreamer-1.0/* ./lib/
-cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./lib/
-mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
-
+rsync -aruxv --progress /opt/usr/plugins/ ./plugins/
+rsync -aruxv --progress /opt/usr/share/ ./usr/share/
+rsync -aruxv --progress /opt/etc/ ./etc/
+rsync -aruxv --progress /opt/usr/qml/ ./qml/
 rsync -aruxv --progress /opt/usr/resources/ ./usr/bin/
 rsync -aruxv --progress /opt/usr/translations/ ./usr/bin/
+rsync -aruxv --progress /opt/usr/lib/ring/ ./usr/lib/
+cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./usr/lib/
 
+cp /opt/usr/bin/gst* ./usr/bin/
+cp /opt/usr/bin/k* ./usr/bin/
+cp /opt/usr/lib/ring/dring ./usr/bin/
 mkdir ./lib
+rm -rfv /opt/usr/lib/gstreamer-1.0/include
+cp -rfv /opt/usr/lib/gstreamer-1.0 ./lib/
+mv /opt/usr/library/* ./lib/
+cp /usr/lib/x86_64-linux-gnu/pulseaudio/*.so* ./lib/
+cp -rfv /usr/share/mime ./usr/share/
+cp /etc/mime.types ./etc/
+update-mime-database ./usr/share/mime
+
 mv /opt/usr/libexec/Qt* ./usr/bin/ || true
-
+mv /opt/usr/lib/x86_64-linux-gnu/libexec/kf5/* ./usr/bin/ || true
+mv /opt/usr/libexec/gstreamer-1.0/* ./usr/bin || true
+cp -rfv /opt/usr/lib/x86_64-linux-gnu/* /opt/usr/lib/
+cp /usr/lib/x86_64-linux-gnu/libdbus-c++-1.so* ./usr/lib/
+cp /opt/usr/lib/libpcre.so* ./usr/lib/
 unset LD_LIBRARY_PATH
-~/./linuxdeployqt-1-x86_64.AppImage <%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
-
+../linuxdeployqt-1-x86_64.AppImage <%= binary %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
+../linuxdeployqt-1-x86_64.AppImage dring -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
 patch_usr
 glibc_needed
 delete_blacklisted
@@ -101,18 +111,18 @@ rm -rf ./usr/share/util-macros || true
 find . -name '*.a' -exec rm {} \;
 strip -g $(find . -type f -exec) || true
 find . -type f -exec file {} \; | grep "not stripped"
+#rm -f ./lib/libEGL*
 #Add back libkrb5
 cp /usr/lib/x86_64-linux-gnu/libkrb5* ./lib/
-get_desktopintegration <%= name %>
-cd /source/
-rm -rfv appimage-exec-wrapper || true
+get_desktopintegration <%= binary %>
+cd /app/src
 git clone git://anongit.kde.org/scratch/brauch/appimage-exec-wrapper
-cd /source//appimage-exec-wrapper/
+cd /app/src/appimage-exec-wrapper/
 make clean
 make
-cp -v exec.so /app.Dir//exec_wrapper.so
+cp -v exec.so /<%= name %>.AppDir/exec_wrapper.so
 rm -rfv  /app/src/appimage-exec-wrapper
-cd /app.Dir/
+cd /<%= name %>.AppDir
 rm AppRun
 #Create AppRun
 cat > AppRun << EOF
@@ -141,13 +151,18 @@ EOF
 chmod +x AppRun
 mv <%= binary %> ./usr/bin/
 cp <%= binary %>.desktop ./usr/share/applications/
-cd ~
+cd /
+wget "https://github.com/probonopd/AppImageKit/releases/download/knowngood/appimagetool-x86_64.AppImage"
+chmod a+x appimagetool-x86_64.AppImage
 
+ARCH=$(arch)
+DATE=$(date +"%Y%m%d")
 
-#Appstream support for appimagetool
-rm -rfv /source/*
-
-
+APPIMAGEFILENAME="<%= binary %>-git$DATE-$ARCH.AppImage"
 
 #Re set LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/lib/x86_64-linux-gnu:/usr/lib:/usr/lib64:/lib
+export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/lib/x86_64-linux-gnu:/usr/lib:/usr/lib64
+gpg2 --import /root/.gnupg/appimage.key
+./appimagetool-x86_64.AppImage -v -s -u "zsync|$APPIMAGEFILENAME" /<%= name %>.AppDir /appimage/$APPIMAGEFILENAME
+./appimagetool-x86_64.AppImage -v -s -u "zsync|$APPIMAGEFILENAME" /<%= name %>.AppDir /appimage/<%= name %>-latest-$ARCH.AppImage
+zsyncmake -u "https://s3-eu-central-1.amazonaws.com/ds9-apps/ark-appimage/master/$APPIMAGEFILENAME" -o /appimage/<%= name %>_latestversion.zsync /appimage/$APPIMAGEFILENAME
