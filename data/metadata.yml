@@ -1,7 +1,6 @@
 name: ring-kde
 binary: ring-kde
 packages:
-  - zsync
   - libpulse-dev
   - libsamplerate0-dev
   - libgsm1-dev
@@ -72,17 +71,16 @@ frameworks:
   - breeze-icons
   - kinit
   - knotifyconfig
+  - kcontacts
   - kitemmodels
   - kdesignerplugin
+  - akonadi
+  - kmime
   - kparts
   - kunitconversion
   - kded
   - kdelibs4support
   - kemoticons
-kde_deps:
-  - kcontacts
-  - akonadi
-  - kmime
   - kcalcore
   - akonadi-mime
   - akonadi-contacts
@@ -91,6 +89,14 @@ url: https://gerrit-ring.savoirfairelinux.com/ring-daemon
 buildsystem: custom
 buildoptions: /bin/bash /in/scripts/ring.sh
 dependencies:
+  - cpan:
+      build:
+        buildsystem: custom
+        buildoptions: cpan URI::Escape
+      depname: cpan
+      source:
+        type: none
+        url: ''
   - asio:
       build:
         buildsystem: custom
