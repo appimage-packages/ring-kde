@@ -103,7 +103,7 @@ dependencies:
   - kashmir:
       build:
         buildsystem: custom
-        buildoptions: 'mv /app/src/kashmir-dependency/kashmir /opt/usr/include/kashmir'
+        buildoptions: 'mv /source/kashmir-dependency/kashmir /opt/usr/include/kashmir'
       depname: kashmir-dependency
       source:
         type: git
