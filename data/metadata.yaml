@@ -122,13 +122,16 @@ dependencies:
       build:
         buildsystem: custom
         buildoptions: /bin/bash /in/scripts/x264.sh
+      depname: x264
       source:
         type: none
         url: ''
+        branch: ''
   - x265:
       build:
         buildsystem: custom
         buildoptions: /bin/bash /in/scripts/x265.sh
+      depname: x265
       source:
         type: none
         url: ''
