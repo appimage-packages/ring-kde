@@ -73,8 +73,8 @@ frameworks:
   - kinit
   - knotifyconfig
   - kitemmodels
-  - kdesignerplugin
   - kparts
+  - kdesignerplugin
   - kunitconversion
   - kded
   - kdelibs4support
