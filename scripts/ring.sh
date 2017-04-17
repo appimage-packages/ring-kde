@@ -5,7 +5,7 @@ export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/library:/opt/usr/lib/x86_64-linux-g
 export PKG_CONFIG="pkg-config --static"
 export CPATH=/opt/usr/include:/opt/usr/include/corvusoft:/opt/usr/include/boost/system:/opt/usr/include/boost:/usr/include
 export LDFLAGS="-L/opt/usr/library -L/opt/usr/lib $LDFLAGS"
-cd /in/source/ring-daemon/contrib
+cd /in/source/ring-kde/contrib
 
 rm -rfv build
 mkdir build
@@ -30,7 +30,7 @@ else
 fi
 cd ../../
 LIBRINGLIENT=`pwd`/ring-lrc
-RING=/app/src/ring
+RING=/source/ring-kde
 git clone https://gerrit-ring.savoirfairelinux.com/ring-lrc
 cd $LIBRINGLIENT
 mkdir build
@@ -53,7 +53,7 @@ git clone git://anongit.kde.org/ring-kde
 cd ring-kde
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/opt/usr -DCMAKE_BUILD_TYPE=Release
+cmake .. -DCMAKE_INSTALL_PREFIX=/app.Dir/usr -DCMAKE_BUILD_TYPE=Release
 make
 make install
 function error_exit
