@@ -5,7 +5,8 @@ export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/library:/opt/usr/lib/x86_64-linux-g
 export PKG_CONFIG="pkg-config --static"
 export CPATH=/opt/usr/include:/opt/usr/include/corvusoft:/opt/usr/include/boost/system:/opt/usr/include/boost:/usr/include
 export LDFLAGS="-L/opt/usr/library -L/opt/usr/lib $LDFLAGS"
-cd /in/source/ring-kde/contrib
+git clone https://github.com/savoirfairelinux/ring-daemon
+cd ring-daemon/contrib
 
 rm -rfv build
 mkdir build
