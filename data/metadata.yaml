@@ -2,12 +2,10 @@ name: ring-kde
 binary: ring-kde
 packages:
   - zsync
-  - libpulse-dev
   - libsamplerate0-dev
   - libgsm1-dev
   - libspeex-dev
   - libtool
-  - libdbus-1-dev
   - libasound2-dev
   - libopus-dev
   - libspeexdsp-dev
