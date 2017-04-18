@@ -27,7 +27,7 @@ rm -f functions.sh
 cd /app.Dir
 #Move binary/desktop/icon into AppDir
 mv /app.Dir/usr/bin/<%= binary %> .
-mv /app.Dir/usr/share/applications/org.kde.<%= binary %>.desktop <%= binary %>.desktop
+mv /app.Dir/usr/share/applications/cx.ring.ring-kde.desktop <%= binary %>.desktop
 cp /app.Dir/usr/share/icons/hicolor/48x48/apps/*<%= name %>* .
 
 mkdir ./etc; cp /etc/mime.types $_
