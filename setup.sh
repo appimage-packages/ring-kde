@@ -66,7 +66,7 @@ else
 fi
 
 if rspec /in/tooling/aci/spec/create_appimage_rspec.rb --fail-fast; then
-	echo "Recipe Complete"
+	echo "Appimage Complete"
 else
 	error_exit "$LINENO: An error has occurred.. Aborting."
 fi
