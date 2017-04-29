@@ -89,6 +89,14 @@ url: https://gerrit-ring.savoirfairelinux.com/ring-daemon
 buildsystem: custom
 buildoptions: /bin/bash /in/scripts/ring.sh
 dependencies:
+  - gmp:
+      build:
+        buildsystem: make
+        buildoptions: '--prefix=/opt/usr'
+      depname: gmp
+      source:
+        type: tar
+        url: ftp://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
   - asio:
       build:
         buildsystem: custom
