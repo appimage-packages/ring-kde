@@ -6,6 +6,7 @@ export PKG_CONFIG="pkg-config --static"
 export CPATH=/opt/usr/include:/opt/usr/include/corvusoft:/opt/usr/include/boost/system:/opt/usr/include/boost:/usr/include
 export LDFLAGS="-L/opt/usr/library -L/opt/usr/lib $LDFLAGS"
 cd /source/
+rm -rfv ring-daemon
 git clone https://github.com/savoirfairelinux/ring-daemon
 cd ring-daemon/contrib
 
