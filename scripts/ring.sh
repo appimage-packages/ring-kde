@@ -13,7 +13,7 @@ cd ring-daemon/contrib
 rm -rfv build
 mkdir build
 cd build
-if ../bootstrap --prefix=/opt/usr --enable-shared --disable-restbed --disable-boost --enable-argon2; then
+if ../bootstrap --prefix=/opt/usr --disable-restbed --disable-boost --enable-argon2; then
 
 make
 
