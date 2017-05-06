@@ -4,7 +4,8 @@ set -x
 export LD_LIBRARY_PATH=/opt/usr/lib:/opt/usr/library:/opt/usr/lib/x86_64-linux-gnu:/usr/lib:/usr/lib64
 export PKG_CONFIG="pkg-config --static"
 export CPATH=/opt/usr/include:/opt/usr/include/corvusoft:/opt/usr/include/boost/system:/opt/usr/include/boost:/usr/include
-export LDFLAGS="-L/opt/usr/library -L/opt/usr/lib $LDFLAGS"
+export LDFLAGS="-L/opt/usr/library -L/opt/usr/lib $(shell pkg-config --cflags argon2) $LDFLAGS"
+export CFLAGS="$(shell pkg-config --libs argon2) $CXXFLAGS"
 cd /source/
 rm -rfv ring-daemon
 git clone https://github.com/savoirfairelinux/ring-daemon
